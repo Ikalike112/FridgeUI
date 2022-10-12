@@ -1,0 +1,17 @@
+﻿using AutoMapper;
+using FridgeUI.Models.FridgeProductsModels;
+using FridgeUI.Models.ProductModels;
+
+namespace FridgeUI.AutoMapperProfile
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<ProductModel, ProductToCreateWithFridgeViewModel>()
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.DefaultQuantity));
+            CreateMap<ProductToCreateWithFridgeViewModel, FridgeProductToCreateFromFridgeDto>()
+                .ForMember(dest=> dest.ProductId,opt => opt.MapFrom(src => src.Id));
+        }
+    }
+}
