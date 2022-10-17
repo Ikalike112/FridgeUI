@@ -10,6 +10,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Register">
+            <div></div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -22,14 +23,23 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <label asp-for="ConfirmPassword" class="control-label">Confirm password</label>
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Registration" class="btn btn-primary" />
+                <input type="submit" value="Register" class="btn btn-primary" />
             </div>
         </form>
+        <p>
+            Note that for demo purposes you don't need to register and can login with these credentials:
+        </p>
+        <p>
+            User:     <b>user@example.com</b> OR <b>admin@example.com</b>
+        </p>
+        <p>
+            Password: <b>password</b>
+        </p>
     </div>
 </div>
 

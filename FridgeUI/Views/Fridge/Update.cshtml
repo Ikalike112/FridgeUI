@@ -6,7 +6,6 @@
 
 <h1>Update</h1>
 
-<h4>FridgeModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,7 +25,7 @@
                 <span asp-validation-for="FridgeForUpdateDto.OwnerName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.Label("Model");
+                @Html.Label("Model")
                 @Html.DropDownListFor(x => x.FridgeForUpdateDto.FridgeModelId,
                 new SelectList(Model.FridgeModels,"Id","Name"),
                 "Select model",

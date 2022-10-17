@@ -1,58 +1,55 @@
-﻿@model FridgeUI.Models.ViewModels.FridgeProductsViewModel
+﻿@model IEnumerable<FridgeUI.Models.ProductModels.ProductModel>
 
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Products</h1>
+<h1>Index</h1>
 
 <p>
-    @Html.ActionLink("Create new", "Create", new { fridgeId= Model.FridgeId })
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Name
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                ImageSource
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                Quantity
+                @Html.DisplayNameFor(model => model.DefaultQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageSource)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.FridgeProducts) {
+@foreach (var item in Model) {
         <tr>
-            @Html.HiddenFor(modelItem => item.Id)
             <td>
-                @Html.DisplayFor(modelItem => item.Product.Name)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                    <img class="productimg" src="@item.Product.ImageSource" alt="no image" />
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
+                @Html.DisplayFor(modelItem => item.DefaultQuantity)
             </td>
             <td>
-                    @Html.ActionLink("Edit", "Update", new { id=item.Id }, new {@class="btn btn-link nopadding"}) |
+                 <img class="productimg" src="@item.ImageSource" alt="no image" />
+            </td>
+            <td>
+                    @Html.ActionLink("Update", "Update", item, new {@class="btn btn-link nopadding"} ) |
                 <input type="button" value="Delete" class="btn btn-link nopadding" onclick="deleteConfirm('@item.Id')" />
             </td>
         </tr>
 }
     </tbody>
 </table>
-<div>
-    <a asp-action="Index" asp-controller="Fridge">Back to List</a>
-</div>
-<style>
-    .nopadding {
-        padding: 0 !important;
-    }
-</style>
 @section Scripts{
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
@@ -70,8 +67,8 @@
         var deleteData = function (val) {
             $.ajax({
                 type: "DELETE",
-                url: '@Url.Action("Delete","FridgeProducts")',
-                data: { productId: val },
+                url: '@Url.Action("Delete","Products")',
+                data: { modelId: val },
                 success: function (result) {
                     window.location.href = window.location.href;
                 },

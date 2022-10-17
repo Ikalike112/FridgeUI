@@ -80,10 +80,6 @@ namespace FridgeUI.Controllers
             var content = SendHttpRequest(HttpMethod.Get, "fridgeproducts/changezeroquantity", null);
             return RedirectToAction("Index");
         }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
 
     }

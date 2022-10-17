@@ -24,9 +24,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Fridge" asp-action="Index">Fridges</a>
                         </li>
                         @if (User.IsInRole("Administrator"))
@@ -53,13 +50,11 @@
                                     <a asp-controller="Auth" asp-action="Account" class="nav-link " style="color: seagreen">Hello, @email</a>
                                 
                             }
-
-                            //@Html.ActionLink("Logout", "Logout", "Account", routeValues: null, new{ @class= "btn btn-outline-primary login-button" })
                         }
                         else
                         {
-                                @Html.ActionLink("Login", "Login", "Auth", routeValues: null, new{ @class= "btn btn-outline-primary login-button" })
-                                @Html.ActionLink("Register", "Register", "Auth", routeValues: null, new{ @class= "btn btn-outline-primary login-button" })
+                                @Html.ActionLink("Login", "Login", "Auth", routeValues: null, new{ @class= "btn btn-outline-primary mr-2" })
+                                @Html.ActionLink("Register", "Register", "Auth", routeValues: null, new{ @class= "btn btn-outline-primary mr-2" })
                         }
                     }
                         </span>
@@ -74,7 +69,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - FridgeUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - FridgeUI 
         </div>
     </footer>
 

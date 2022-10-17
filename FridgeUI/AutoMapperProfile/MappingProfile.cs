@@ -10,6 +10,8 @@ namespace FridgeUI.AutoMapperProfile
         public MappingProfile()
         {
             CreateMap<FrdigeModelDto, FridgeModelForManipulateDto>();
+            CreateMap<ProductModel, ProductForManipulateDto>()
+                .ForMember(dest => dest.Image, opt => opt.Ignore());
             CreateMap<ProductModel, ProductToCreateWithFridgeViewModel>()
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.DefaultQuantity));
             CreateMap<ProductToCreateWithFridgeViewModel, FridgeProductToCreateFromFridgeDto>()

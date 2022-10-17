@@ -6,7 +6,6 @@
 
 <h1>Create</h1>
 
-<h4>FridgeProductUpdateViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -30,9 +29,9 @@
                 new { @class = "form-control" })
                 <span asp-validation-for="FridgeProductForManipulateDto.ProductId" class="text-danger"></span>
             </div>
-            <div>
-                @Html.EditorFor(x => x.FridgeProductForManipulateDto.Quantity)<br />
-                @*<input asp-for="@product.Quantity" data-val="true" data-val-number="The field must be a number." id="Age" type="number" value="" />*@
+            <div class="form-group">
+                @Html.Label("Quanity")<br />
+                @Html.EditorFor(x => x.FridgeProductForManipulateDto.Quantity, new { @class = "form-control" })
                 <span asp-validation-for="FridgeProductForManipulateDto.Quantity" class="text-danger"></span>
 
             </div>

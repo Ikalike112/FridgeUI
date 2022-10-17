@@ -7,3 +7,6 @@
     left: 20px;
     top: 70px;
 }
+.nopadding {
+    padding: 0 !important;
+}
