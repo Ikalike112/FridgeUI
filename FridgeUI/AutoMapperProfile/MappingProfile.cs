@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FridgeUI.Models.FridgeModelModels;
 using FridgeUI.Models.FridgeProductsModels;
 using FridgeUI.Models.ProductModels;
 
@@ -8,6 +9,7 @@ namespace FridgeUI.AutoMapperProfile
     {
         public MappingProfile()
         {
+            CreateMap<FrdigeModelDto, FridgeModelForManipulateDto>();
             CreateMap<ProductModel, ProductToCreateWithFridgeViewModel>()
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.DefaultQuantity));
             CreateMap<ProductToCreateWithFridgeViewModel, FridgeProductToCreateFromFridgeDto>()

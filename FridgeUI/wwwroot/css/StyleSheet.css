@@ -1,0 +1,9 @@
+﻿.productimg {
+    height: 150px;
+    width: 150px;
+}
+.SPButton {
+    position: fixed;
+    left: 20px;
+    top: 70px;
+}

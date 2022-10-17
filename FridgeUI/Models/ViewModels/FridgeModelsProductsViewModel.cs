@@ -15,17 +15,5 @@ namespace FridgeUI.Models.ViewModels
         public FridgeForCreateDto FridgeForCreateModel { get; set; }
         public List<FrdigeModelDto> FridgeModelsForCreateFridge { get; set; }
         public List<ProductToCreateWithFridgeViewModel> ProductsForCreateFridge { get; set; }
-        //public FridgeModelsProductsViewModel()
-        //{
-        //    FridgeForCreateModel = new FridgeForCreateDto();
-        //    ProductsForCreateFridge = new List<ProductToCreateWithFridgeViewModel>();
-        //    FridgeModelsForCreateFridge = new List<FrdigeModelDto>();
-        //}
-        //public FridgeModelsProductsViewModel(List<FrdigeModelDto> fridgeModels, List<ProductToCreateWithFridgeViewModel> productModels)
-        //{
-        //    FridgeModelsForCreateFridge = fridgeModels;
-        //    ProductsForCreateFridge = productModels;
-        //    FridgeForCreateModel = new FridgeForCreateDto();
-        //}
     }
 }

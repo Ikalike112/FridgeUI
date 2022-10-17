@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace FridgeUI.Controllers
@@ -25,7 +26,7 @@ namespace FridgeUI.Controllers
         public async Task<IActionResult> Index()
         {
             var content = await SendHttpRequest(HttpMethod.Get, "fridge", null);
-            var fridges = JsonConvert.DeserializeObject<List<FridgeModel>>(content);
+            var fridges = JsonConvert.DeserializeObject<List<FridgeDto>>(content);
             return View(fridges);
         }
         [HttpGet]
@@ -43,6 +44,26 @@ namespace FridgeUI.Controllers
             };
 
             return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var content = await SendHttpRequest(HttpMethod.Get, $"fridge/{id}",null);
+            var contentFridgeModels = SendHttpRequest(HttpMethod.Get, "fridgemodel", null);
+            var fridgeModels = JsonConvert.DeserializeObject<List<FrdigeModelDto>>(await contentFridgeModels);
+            var fridge = JsonConvert.DeserializeObject<FridgeForUpdateDto>(content);
+            var model = new FridgeForUpdateViewModel()
+            {
+                FridgeForUpdateDto = fridge,
+                FridgeModels = _mapper.Map<List<FrdigeModelDto>>(fridgeModels),               
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(FridgeForUpdateViewModel model)
+        {
+            var content = await SendHttpRequest(HttpMethod.Put, $"fridge/{model.FridgeForUpdateDto.Id}", model.FridgeForUpdateDto);
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public async Task<IActionResult> Create(FridgeModelsProductsViewModel model)

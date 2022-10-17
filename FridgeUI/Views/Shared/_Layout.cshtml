@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - FridgeUI</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+
 </head>
 <body>
     <header>
@@ -27,13 +29,45 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Fridge" asp-action="Index">Fridges</a>
                         </li>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FridgeModel" asp-action="Index">Fridge Models</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                            </li>
+                        }
                     </ul>
+                   
                 </div>
             </div>
+            
+            <span class="nav-item float-right">
+                    @{
+                        if (Context.Request.Cookies.TryGetValue("token", out string _))
+                        {
+                            if (Context.Request.Cookies.TryGetValue("email", out string email))
+                            {
+
+                                    <a asp-controller="Auth" asp-action="Account" class="nav-link " style="color: seagreen">Hello, @email</a>
+                                
+                            }
+
+                            //@Html.ActionLink("Logout", "Logout", "Account", routeValues: null, new{ @class= "btn btn-outline-primary login-button" })
+                        }
+                        else
+                        {
+                                @Html.ActionLink("Login", "Login", "Auth", routeValues: null, new{ @class= "btn btn-outline-primary login-button" })
+                                @Html.ActionLink("Register", "Register", "Auth", routeValues: null, new{ @class= "btn btn-outline-primary login-button" })
+                        }
+                    }
+                        </span>
+                    
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="mainpage pb-3">
             @RenderBody()
         </main>
     </div>
@@ -48,6 +82,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Html.PartialAsync("_notification")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

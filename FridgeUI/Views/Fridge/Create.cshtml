@@ -30,11 +30,6 @@
                         new { @class = "form-control" })
                     <span asp-validation-for="@Model.ModelId" class="text-danger"></span>
                 </div>
-@*                <div class="form-group">
-                    <label asp-for="FridgeModelId" class="control-label"></label>
-                    <input asp-for="FridgeModelId" class="form-control" />
-                    <span asp-validation-for="FridgeModelId" class="text-danger"></span>
-                </div>*@
             </div>
             <table class="table">
                 <thead>
@@ -60,23 +55,17 @@
                         @Html.HiddenFor(model => model.ProductsForCreateFridge[i].DefaultQuantity);
                         <tr>
                             <td>
-                                <img src="@Model.ProductsForCreateFridge[i].ImageSource" alt="no image" />
+                                <img class="productimg" src="@Model.ProductsForCreateFridge[i].ImageSource" alt="no image" />
                             </td>
                             <td>
-                                @*<label asp-for="@product.Name" class="control-label"></label>*@
-                                @Html.DisplayFor(x=> x.ProductsForCreateFridge[i].Name);
+                                @Html.DisplayFor(x=> x.ProductsForCreateFridge[i].Name)
                             </td>
                             <td>
                                 @Html.EditorFor(x => x.ProductsForCreateFridge[i].Quantity)<br />
-                                @*<input asp-for="@product.Quantity" data-val="true" data-val-number="The field must be a number." id="Age" type="number" value="" />*@
                                 <span asp-validation-for="@Model.ProductsForCreateFridge[i].Quantity" class="text-danger"></span>
 
                             </td>
                             <td>
-@*                                <div class="checkbox">
-                                    <input asp-for="@product.Selected" />
-                                </div>*@
-
                                 @Html.EditorFor(x => x.ProductsForCreateFridge[i].Selected)
                             </td>
                         </tr>

@@ -1,14 +1,22 @@
 ﻿<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
     var msg = @(TempData["Message"] != null ? Html.Raw(TempData["Message"]) : Html.Raw("undefined"));
     if (msg) {
         if (msg.provider == "sweetAlert") {
-            swal.fire({
-                title: msg.title,
-                text: msg.message,
-                icon: msg.icon
-            });
-        } else {
-            toastr[msg.type](msg.message, msg.title);
+            Toast.fire({
+                icon: msg.icon,
+                title: msg.message
+            })
         }
     }
 </script>

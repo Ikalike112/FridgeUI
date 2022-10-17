@@ -1,10 +1,10 @@
-﻿@model IEnumerable<FridgeUI.Models.FridgeModels.FridgeModel>
+﻿@model IEnumerable<FridgeUI.Models.FridgeModels.FridgeDto>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Fridges</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,39 +13,45 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OwnerName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FridgeModelName)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OwnerName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id  }) |
-
-
-                    <input type="button" value="Delete" class="btn btn-link" onclick="deleteConfirm('@item.Id')" />
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                    @Html.HiddenFor(modelItem => item.Id)
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FridgeModelName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Update", new { id=item.Id  }, new {@class="btn btn-link nopadding"}) |
+                    @Html.ActionLink("Details", "Products", "FridgeProducts", new { id=item.Id  }, new {@class="btn btn-link nopadding"}) |
+                    <input type="button" value="Delete" class="btn btn-link nopadding" onclick="deleteConfirm('@item.Id')" />
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<style>
+    .nopadding {
+        padding: 0 !important;
+    }
+</style>
 
 @section Scripts{
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -58,7 +64,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     deleteData(val);
-                } 
+                }
             })
         }
         var deleteData = function (val) {

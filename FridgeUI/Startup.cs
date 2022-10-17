@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,7 +34,8 @@ namespace FridgeUI
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/Home/Error");
             }
             else
             {
@@ -42,7 +44,17 @@ namespace FridgeUI
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            var options = new StaticFileOptions
+            {
+                ContentTypeProvider = new FileExtensionContentTypeProvider()
+            };
+            ((FileExtensionContentTypeProvider)options.ContentTypeProvider).Mappings.Add(
+                new KeyValuePair<string, string>(".gltf", "model/gltf"));
+
+            StaticFileOptions optionstest = new StaticFileOptions { ContentTypeProvider = new FileExtensionContentTypeProvider() };
+            optionstest.ServeUnknownFileTypes = true;
+            app.UseStaticFiles(options);
 
             app.UseRouting();
 
