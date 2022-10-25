@@ -1,0 +1,48 @@
+﻿@model FridgeUI.Models.ViewModels.FridgeForUpdateViewModel
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.HiddenFor(x => x.FridgeForUpdateDto.Id)
+            </div>
+            <div class="form-group">
+                <label asp-for="FridgeForUpdateDto.Name" class="control-label"></label>
+                <input asp-for="FridgeForUpdateDto.Name" class="form-control" />
+                <span asp-validation-for="FridgeForUpdateDto.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FridgeForUpdateDto.OwnerName" class="control-label"></label>
+                <input asp-for="FridgeForUpdateDto.OwnerName" class="form-control" />
+                <span asp-validation-for="FridgeForUpdateDto.OwnerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.Label("Model")
+                @Html.DropDownListFor(x => x.FridgeForUpdateDto.FridgeModelId,
+                new SelectList(Model.FridgeModels,"Id","Name"),
+                "Select model",
+                new { @class = "form-control" })
+                <span asp-validation-for="FridgeForUpdateDto.FridgeModelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

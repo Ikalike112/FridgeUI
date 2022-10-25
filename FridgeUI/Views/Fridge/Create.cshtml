@@ -1,0 +1,88 @@
+﻿@model FridgeUI.Models.ViewModels.FridgeModelsProductsViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Fridge with products</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="@Model.FridgeForCreateModel.Name" class="control-label">Fridge name</label>
+                    <input asp-for="@Model.FridgeForCreateModel.Name" class="form-control" />
+                    <span asp-validation-for="@Model.FridgeForCreateModel.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.FridgeForCreateModel.OwnerName" class="control-label">Owner name</label>
+                    <input asp-for="@Model.FridgeForCreateModel.OwnerName" class="form-control" />
+                    <span asp-validation-for="@Model.FridgeForCreateModel.OwnerName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                @Html.Label("Model")
+                @Html.DropDownListFor(x => x.ModelId,
+                new SelectList(@Model.FridgeModelsForCreateFridge,"Id","Name"),
+                        "Select model",
+                        new { @class = "form-control" })
+                    <span asp-validation-for="@Model.ModelId" class="text-danger"></span>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Add
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.ProductsForCreateFridge.Count(); i++)
+                    {
+                        @Html.HiddenFor(model => model.ProductsForCreateFridge[i].Id);
+                        @Html.HiddenFor(model => model.ProductsForCreateFridge[i].DefaultQuantity);
+                        <tr>
+                            <td>
+                                <img class="productimg" src="@Model.ProductsForCreateFridge[i].ImageSource" alt="no image" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x=> x.ProductsForCreateFridge[i].Name)
+                            </td>
+                            <td>
+                                @Html.EditorFor(x => x.ProductsForCreateFridge[i].Quantity)<br />
+                                <span asp-validation-for="@Model.ProductsForCreateFridge[i].Quantity" class="text-danger"></span>
+
+                            </td>
+                            <td>
+                                @Html.EditorFor(x => x.ProductsForCreateFridge[i].Selected)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,53 @@
+﻿@model FridgeUI.Models.ViewModels.FridgeProductManipulateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                @Html.Label("Fridge")
+                @Html.DropDownListFor(x => x.FridgeProductForManipulateDto.FridgeId,
+                new SelectList(Model.Fridges,"Id","Name"),
+                "Select fridge",
+                new { @class = "form-control" })
+                <span asp-validation-for="FridgeProductForManipulateDto.FridgeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.Label("Product")
+                @Html.DropDownListFor(x => x.FridgeProductForManipulateDto.ProductId,
+                new SelectList(Model.Products,"Id","Name"),
+                "Select fridge",
+                new { @class = "form-control" })
+                <span asp-validation-for="FridgeProductForManipulateDto.ProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.Label("Quanity")<br />
+                @Html.EditorFor(x => x.FridgeProductForManipulateDto.Quantity, new { @class = "form-control" })
+                <span asp-validation-for="FridgeProductForManipulateDto.Quantity" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Products", new { fridgeId= Model.FridgeProductForManipulateDto.FridgeId })
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

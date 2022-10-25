@@ -1,0 +1,84 @@
+﻿@model FridgeUI.Models.ViewModels.FridgeProductsViewModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>Products</h1>
+
+<p>
+    @Html.ActionLink("Create new", "Create", new { fridgeId= Model.FridgeId })
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                ImageSource
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.FridgeProducts) {
+        <tr>
+            @Html.HiddenFor(modelItem => item.Id)
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                    <img class="productimg" src="@item.Product.ImageSource" alt="no image" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "Update", new { id=item.Id }, new {@class="btn btn-link nopadding"}) |
+                <input type="button" value="Delete" class="btn btn-link nopadding" onclick="deleteConfirm('@item.Id')" />
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index" asp-controller="Fridge">Back to List</a>
+</div>
+<style>
+    .nopadding {
+        padding: 0 !important;
+    }
+</style>
+@section Scripts{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        var deleteConfirm = function (val) {
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteData(val);
+                }
+            })
+        }
+        var deleteData = function (val) {
+            $.ajax({
+                type: "DELETE",
+                url: '@Url.Action("Delete","FridgeProducts")',
+                data: { productId: val },
+                success: function (result) {
+                    window.location.href = window.location.href;
+                },
+                error: function () {
+                    $("#delete-conformation").modal('hide');
+                }
+            });
+        }
+    </script>
+}
